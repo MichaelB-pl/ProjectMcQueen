@@ -26,14 +26,15 @@
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
             android:layout_marginTop="32dp"
+            android:fontFamily="cursive"
+            android:textColor="@color/white"
             android:textSize="194dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/ib_main"
             tools:text="Aa"
-            tools:textColor="#000"
-            android:textColor="@color/white"/>
+            tools:textColor="#000" />
 
         <ImageView
             android:id="@+id/ib_main"
@@ -51,7 +52,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rv_letters"
-            tools:src="@mipmap/ic_launcher" />
+            tools:src="@mipmap/ic_launcher"
+            tools:visibility="gone"/>
     </android.support.constraint.ConstraintLayout>
 
 </layout>
