@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="actionBarHeight">64dp</dimen>
+
+    <dimen name="alphabethTitleBarHeight">32dp</dimen>
+    <dimen name="alphabethTitleHeight">16dp</dimen>
+</resources>

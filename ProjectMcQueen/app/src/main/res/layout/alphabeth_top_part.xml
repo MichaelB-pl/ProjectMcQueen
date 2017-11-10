@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_letters"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="0dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="0dp"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_letters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="32dp"
+            android:textSize="194dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ib_main"
+            tools:text="Aa"
+            tools:textColor="#000"
+            android:textColor="@color/white"/>
+
+        <ImageView
+            android:id="@+id/ib_main"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="0dp"
+            android:background="#0000"
+            android:onClick="ib_main_clicked"
+            android:padding="16dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_letters"
+            tools:src="@mipmap/ic_launcher" />
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
