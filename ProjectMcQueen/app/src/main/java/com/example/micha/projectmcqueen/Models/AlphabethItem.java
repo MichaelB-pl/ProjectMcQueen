@@ -82,7 +82,7 @@ public class AlphabethItem {
                         R.drawable.labedz, R.drawable.lopatka, R.drawable.los, R.drawable.lodka, R.drawable.lyzka),
                 new AlphabethItem("M",
                         "Malina", "Małpka", "Marchewka", "Motor", "Motyl",
-                        R.drawable.malina, R.drawable.malpka, R.drawable.marchewka, R.drawable.motor, R.drawable.motor),
+                        R.drawable.malina, R.drawable.malpka, R.drawable.marchewka, R.drawable.motor, R.drawable.motyl),
                 new AlphabethItem("N",
                         "Niedźwiedź", "Nietoperz", "Nosorożec", "Nożyczki", "Nuta",
                         R.drawable.niedzwiedz, R.drawable.nietoperz, R.drawable.nosorozec, R.drawable.nozyczki, R.drawable.nuta),
