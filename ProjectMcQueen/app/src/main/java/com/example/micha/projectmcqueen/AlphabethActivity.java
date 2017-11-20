@@ -1,6 +1,7 @@
 package com.example.micha.projectmcqueen;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +24,9 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
         getSupportActionBar().hide();
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_alphabeth);
+
+        mBinding.alphabethTopPart.tvLetters.setTypeface(Typeface.createFromAsset(getAssets(), "GloriaHallelujah.ttf"));
+        mBinding.alphabethBottomPart.textView.setTypeface(Typeface.createFromAsset(getAssets(), "GloriaHallelujah.ttf"));
 
 //        if(savedInstanceState == null){
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);

@@ -18,9 +18,9 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/alphabethTitleHeight"
-                android:textAlignment="center"
                 tools:text="Helilkopter" />
         </LinearLayout>
 
