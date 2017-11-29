@@ -18,9 +18,9 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/alphabethTitleHeight"
-                android:textAlignment="center"
                 tools:text="Helilkopter" />
         </LinearLayout>
 
@@ -72,40 +72,6 @@
                 app:layout_constraintRight_toLeftOf="@id/guid_ver_1"
                 android:layout_marginRight="8dp" />
             <ImageView
-                android:id="@+id/ib_02"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                tools:src="@mipmap/ic_launcher"
-                android:background="#0000"
-                android:scaleType="fitCenter"
-                android:onClick="ib_02_clicked"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/guid_ver_1"
-                app:layout_constraintRight_toLeftOf="@id/guid_ver_2"
-                android:layout_marginRight="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="8dp" />
-            <ImageView
-                android:id="@+id/ib_03"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                tools:src="@mipmap/ic_launcher"
-                android:background="#0000"
-                android:scaleType="fitCenter"
-                android:onClick="ib_03_clicked"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/guid_ver_2"
-                app:layout_constraintRight_toLeftOf="@id/guid_ver_3"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp" />
-            <ImageView
                 android:id="@+id/ib_04"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -117,12 +83,28 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/guid_ver_3"
-                app:layout_constraintRight_toLeftOf="@id/guid_ver_4"
+                app:layout_constraintLeft_toRightOf="@id/guid_ver_1"
+                app:layout_constraintRight_toLeftOf="@id/guid_ver_2"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp" />
+            <ImageView
+                android:id="@+id/ib_02"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                tools:src="@mipmap/ic_launcher"
+                android:background="#0000"
+                android:scaleType="fitCenter"
+                android:onClick="ib_02_clicked"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/guid_ver_2"
+                app:layout_constraintRight_toLeftOf="@id/guid_ver_3"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp" />
-
             <ImageView
                 android:id="@+id/ib_05"
                 android:layout_width="0dp"
@@ -132,6 +114,24 @@
                 android:background="#0000"
                 android:scaleType="fitCenter"
                 android:onClick="ib_05_clicked"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/guid_ver_3"
+                app:layout_constraintRight_toLeftOf="@id/guid_ver_4"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp" />
+
+            <ImageView
+                android:id="@+id/ib_03"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                tools:src="@mipmap/ic_launcher"
+                android:background="#0000"
+                android:scaleType="fitCenter"
+                android:onClick="ib_03_clicked"
                 android:layout_marginRight="8dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"

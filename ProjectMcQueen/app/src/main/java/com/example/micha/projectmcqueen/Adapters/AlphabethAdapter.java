@@ -1,6 +1,7 @@
 package com.example.micha.projectmcqueen.Adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -46,6 +47,7 @@ public class AlphabethAdapter extends RecyclerView.Adapter<AlphabethAdapter.Alph
 
     @Override
     public void onBindViewHolder(AlphabethAdapterViewHolder holder, int position) {
+        holder.LetterTextView.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "GloriaHallelujah.ttf"));
         holder.LetterTextView.setText(mAlphabeth[position].Letter);
     }
 
