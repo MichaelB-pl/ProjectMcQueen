@@ -23,6 +23,8 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
 
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN);
+
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_alphabeth);
 
         mBinding.alphabethTopPart.tvLetters.setTypeface(Typeface.createFromAsset(getAssets(), "GloriaHallelujah.ttf"));
@@ -102,87 +104,32 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
         if (itemIndex == 0) {
             mBinding.alphabethBottomPart.textView.setText(mAdapter.mAlphabeth[listIndex].FirstImageName);
             mBinding.alphabethTopPart.ibMain.setImageResource(mAdapter.mAlphabeth[listIndex].FirstImageResId);
-            mBinding.alphabethBottomPart.ib01.setImageResource(0);
-            mBinding.alphabethBottomPart.ib02.setImageResource(mAdapter.mAlphabeth[listIndex].SecondImageResId);
-            mBinding.alphabethBottomPart.ib03.setImageResource(mAdapter.mAlphabeth[listIndex].ThirdImageResId);
-            mBinding.alphabethBottomPart.ib04.setImageResource(mAdapter.mAlphabeth[listIndex].FourthImageResId);
-            mBinding.alphabethBottomPart.ib05.setImageResource(mAdapter.mAlphabeth[listIndex].FifthImageResId);
-            /*Glide.with(this).load(mAdapter.mAlphabeth[listIndex].FirstImageResId).into(mBinding.alphabethTopPart.ibMain);
-            Glide.with(this).load(R.drawable.transparent_rectangle).into(mBinding.alphabethBottomPart.ib01);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].SecondImageResId).into(mBinding.alphabethBottomPart.ib02);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].ThirdImageResId).into(mBinding.alphabethBottomPart.ib03);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].FourthImageResId).into(mBinding.alphabethBottomPart.ib04);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].FifthImageResId).into(mBinding.alphabethBottomPart.ib05);*/
+            mBinding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
         } else if (itemIndex == 1) {
             mBinding.alphabethBottomPart.textView.setText(mAdapter.mAlphabeth[listIndex].SecondImageName);
             mBinding.alphabethTopPart.ibMain.setImageResource(mAdapter.mAlphabeth[listIndex].SecondImageResId);
-            mBinding.alphabethBottomPart.ib01.setImageResource(mAdapter.mAlphabeth[listIndex].FirstImageResId);
-            mBinding.alphabethBottomPart.ib02.setImageResource(0);
-            mBinding.alphabethBottomPart.ib03.setImageResource(mAdapter.mAlphabeth[listIndex].ThirdImageResId);
-            mBinding.alphabethBottomPart.ib04.setImageResource(mAdapter.mAlphabeth[listIndex].FourthImageResId);
-            mBinding.alphabethBottomPart.ib05.setImageResource(mAdapter.mAlphabeth[listIndex].FifthImageResId);
-            /*Glide.with(this).load(mAdapter.mAlphabeth[listIndex].SecondImageResId).into(mBinding.alphabethTopPart.ibMain);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].FirstImageResId).into(mBinding.alphabethBottomPart.ib01);
-            Glide.with(this).load(R.drawable.transparent_rectangle).into(mBinding.alphabethBottomPart.ib02);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].ThirdImageResId).into(mBinding.alphabethBottomPart.ib03);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].FourthImageResId).into(mBinding.alphabethBottomPart.ib04);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].FifthImageResId).into(mBinding.alphabethBottomPart.ib05);*/
+            mBinding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
         } else if (itemIndex == 2) {
             mBinding.alphabethBottomPart.textView.setText(mAdapter.mAlphabeth[listIndex].ThirdImageName);
             mBinding.alphabethTopPart.ibMain.setImageResource(mAdapter.mAlphabeth[listIndex].ThirdImageResId);
-            mBinding.alphabethBottomPart.ib01.setImageResource(mAdapter.mAlphabeth[listIndex].FirstImageResId);
-            mBinding.alphabethBottomPart.ib02.setImageResource(mAdapter.mAlphabeth[listIndex].SecondImageResId);
-            mBinding.alphabethBottomPart.ib03.setImageResource(0);
-            mBinding.alphabethBottomPart.ib04.setImageResource(mAdapter.mAlphabeth[listIndex].FourthImageResId);
-            mBinding.alphabethBottomPart.ib05.setImageResource(mAdapter.mAlphabeth[listIndex].FifthImageResId);
-            /*Glide.with(this).load(mAdapter.mAlphabeth[listIndex].ThirdImageResId).into(mBinding.alphabethTopPart.ibMain);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].FirstImageResId).into(mBinding.alphabethBottomPart.ib01);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].SecondImageResId).into(mBinding.alphabethBottomPart.ib02);
-            Glide.with(this).load(R.drawable.transparent_rectangle).into(mBinding.alphabethBottomPart.ib03);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].FourthImageResId).into(mBinding.alphabethBottomPart.ib04);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].FifthImageResId).into(mBinding.alphabethBottomPart.ib05);*/
+            mBinding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
         } else if (itemIndex == 3) {
             mBinding.alphabethBottomPart.textView.setText(mAdapter.mAlphabeth[listIndex].FourthImageName);
             mBinding.alphabethTopPart.ibMain.setImageResource(mAdapter.mAlphabeth[listIndex].FourthImageResId);
-            mBinding.alphabethBottomPart.ib01.setImageResource(mAdapter.mAlphabeth[listIndex].FirstImageResId);
-            mBinding.alphabethBottomPart.ib02.setImageResource(mAdapter.mAlphabeth[listIndex].SecondImageResId);
-            mBinding.alphabethBottomPart.ib03.setImageResource(mAdapter.mAlphabeth[listIndex].ThirdImageResId);
-            mBinding.alphabethBottomPart.ib04.setImageResource(0);
-            mBinding.alphabethBottomPart.ib05.setImageResource(mAdapter.mAlphabeth[listIndex].FifthImageResId);
-            /*Glide.with(this).load(mAdapter.mAlphabeth[listIndex].FourthImageResId).into(mBinding.alphabethTopPart.ibMain);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].FirstImageResId).into(mBinding.alphabethBottomPart.ib01);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].SecondImageResId).into(mBinding.alphabethBottomPart.ib02);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].ThirdImageResId).into(mBinding.alphabethBottomPart.ib03);
-            Glide.with(this).load(R.drawable.transparent_rectangle).into(mBinding.alphabethBottomPart.ib04);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].FifthImageResId).into(mBinding.alphabethBottomPart.ib05);*/
+            mBinding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
         } else if (itemIndex == 4) {
             mBinding.alphabethBottomPart.textView.setText(mAdapter.mAlphabeth[listIndex].FifthImageName);
             mBinding.alphabethTopPart.ibMain.setImageResource(mAdapter.mAlphabeth[listIndex].FifthImageResId);
-            mBinding.alphabethBottomPart.ib01.setImageResource(mAdapter.mAlphabeth[listIndex].FirstImageResId);
-            mBinding.alphabethBottomPart.ib02.setImageResource(mAdapter.mAlphabeth[listIndex].SecondImageResId);
-            mBinding.alphabethBottomPart.ib03.setImageResource(mAdapter.mAlphabeth[listIndex].ThirdImageResId);
-            mBinding.alphabethBottomPart.ib04.setImageResource(mAdapter.mAlphabeth[listIndex].FourthImageResId);
-            mBinding.alphabethBottomPart.ib05.setImageResource(0);
-            /*Glide.with(this).load(mAdapter.mAlphabeth[listIndex].FifthImageResId).into(mBinding.alphabethTopPart.ibMain);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].FirstImageResId).into(mBinding.alphabethBottomPart.ib01);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].SecondImageResId).into(mBinding.alphabethBottomPart.ib02);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].ThirdImageResId).into(mBinding.alphabethBottomPart.ib03);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].FourthImageResId).into(mBinding.alphabethBottomPart.ib04);
-            Glide.with(this).load(R.drawable.transparent_rectangle).into(mBinding.alphabethBottomPart.ib05);*/
+            mBinding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
         } else {
             mBinding.alphabethBottomPart.textView.setText("");
             mBinding.alphabethTopPart.ibMain.setImageResource(0);
-            mBinding.alphabethBottomPart.ib01.setImageResource(mAdapter.mAlphabeth[listIndex].FirstImageResId);
-            mBinding.alphabethBottomPart.ib02.setImageResource(mAdapter.mAlphabeth[listIndex].SecondImageResId);
-            mBinding.alphabethBottomPart.ib03.setImageResource(mAdapter.mAlphabeth[listIndex].ThirdImageResId);
-            mBinding.alphabethBottomPart.ib04.setImageResource(mAdapter.mAlphabeth[listIndex].FourthImageResId);
-            mBinding.alphabethBottomPart.ib05.setImageResource(mAdapter.mAlphabeth[listIndex].FifthImageResId);
-            /*Glide.with(this).load(R.drawable.transparent_rectangle).into(mBinding.alphabethTopPart.ibMain);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].FirstImageResId).into(mBinding.alphabethBottomPart.ib01);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].SecondImageResId).into(mBinding.alphabethBottomPart.ib02);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].ThirdImageResId).into(mBinding.alphabethBottomPart.ib03);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].FourthImageResId).into(mBinding.alphabethBottomPart.ib04);
-            Glide.with(this).load(mAdapter.mAlphabeth[listIndex].FifthImageResId).into(mBinding.alphabethBottomPart.ib05);*/
+            mBinding.alphabethTopPart.tvLetters.setVisibility(View.VISIBLE);
         }
+        mBinding.alphabethBottomPart.ib01.setImageResource(mAdapter.mAlphabeth[listIndex].FirstImageResId);
+        mBinding.alphabethBottomPart.ib02.setImageResource(mAdapter.mAlphabeth[listIndex].SecondImageResId);
+        mBinding.alphabethBottomPart.ib03.setImageResource(mAdapter.mAlphabeth[listIndex].ThirdImageResId);
+        mBinding.alphabethBottomPart.ib04.setImageResource(mAdapter.mAlphabeth[listIndex].FourthImageResId);
+        mBinding.alphabethBottomPart.ib05.setImageResource(mAdapter.mAlphabeth[listIndex].FifthImageResId);
     }
 }
