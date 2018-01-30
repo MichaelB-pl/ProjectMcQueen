@@ -13,7 +13,7 @@
         android:background="@color/white"
         android:layout_width="600dp"
         android:layout_height="0dp"
-        tools:context="com.example.micha.projectmcqueen.MainActivity"
+        tools:context="com.example.micha.projectmcqueen.activities.MainActivity"
         android:id="@+id/rv_main"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="0dp"

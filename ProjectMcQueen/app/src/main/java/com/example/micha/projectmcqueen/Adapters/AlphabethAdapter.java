@@ -1,4 +1,4 @@
-package com.example.micha.projectmcqueen.Adapters;
+package com.example.micha.projectmcqueen.adapters;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -9,10 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.micha.projectmcqueen.Models.AlphabethItem;
+import com.example.micha.projectmcqueen.models.AlphabethItem;
 import com.example.micha.projectmcqueen.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

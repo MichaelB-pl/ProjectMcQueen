@@ -1,4 +1,4 @@
-package com.example.micha.projectmcqueen.Adapters;
+package com.example.micha.projectmcqueen.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

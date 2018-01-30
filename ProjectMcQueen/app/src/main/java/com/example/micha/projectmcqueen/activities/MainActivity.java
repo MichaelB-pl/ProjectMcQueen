@@ -1,13 +1,13 @@
-package com.example.micha.projectmcqueen;
+package com.example.micha.projectmcqueen.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Window;
 
-import com.example.micha.projectmcqueen.Adapters.MainAdapter;
+import com.example.micha.projectmcqueen.adapters.MainAdapter;
+import com.example.micha.projectmcqueen.R;
 
 public class MainActivity extends AppCompatActivity  implements MainAdapter.MainAdapterOnClickHandler{
 

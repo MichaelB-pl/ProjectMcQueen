@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryExtraLight"
         android:orientation="vertical"
-        tools:context="com.example.micha.projectmcqueen.AlphabethActivity">
+        tools:context="com.example.micha.projectmcqueen.activities.AlphabethActivity">
 
         <include
             android:id="@+id/alphabeth_top_part"

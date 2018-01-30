@@ -1,4 +1,4 @@
-package com.example.micha.projectmcqueen;
+package com.example.micha.projectmcqueen.activities;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
@@ -8,8 +8,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
-import com.example.micha.projectmcqueen.Adapters.AlphabethAdapter;
-import com.example.micha.projectmcqueen.Models.AlphabethItem;
+import com.example.micha.projectmcqueen.adapters.AlphabethAdapter;
+import com.example.micha.projectmcqueen.models.AlphabethItem;
+import com.example.micha.projectmcqueen.R;
 import com.example.micha.projectmcqueen.databinding.ActivityAlphabethBinding;
 import com.example.micha.projectmcqueen.viewmodels.AlphabethViewModel;
 

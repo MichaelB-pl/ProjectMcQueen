@@ -1,4 +1,4 @@
-package com.example.micha.projectmcqueen.Models;
+package com.example.micha.projectmcqueen.models;
 
 import com.example.micha.projectmcqueen.R;
 
