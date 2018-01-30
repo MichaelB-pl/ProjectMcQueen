@@ -1,5 +1,6 @@
 package com.example.micha.projectmcqueen;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -7,129 +8,132 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
-import com.bumptech.glide.Glide;
 import com.example.micha.projectmcqueen.Adapters.AlphabethAdapter;
+import com.example.micha.projectmcqueen.Models.AlphabethItem;
 import com.example.micha.projectmcqueen.databinding.ActivityAlphabethBinding;
+import com.example.micha.projectmcqueen.viewmodels.AlphabethViewModel;
 
 public class AlphabethActivity extends AppCompatActivity implements AlphabethAdapter.AlphabethAdapterOnClickHandler {
-    private static final String LIST_INDEX_KEY = "list-index";
+    private static final String LETTER_INDEX_KEY = "letter-index";
     private static final String ITEM_INDEX_KEY = "item-index";
 
-    private ActivityAlphabethBinding mBinding;
-    private AlphabethAdapter mAdapter;
+    private ActivityAlphabethBinding binding;
+    private AlphabethAdapter adapter;
+    private AlphabethViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
 
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN);
 
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_alphabeth);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_alphabeth);
+        binding.alphabethTopPart.tvLetters.setTypeface(Typeface.createFromAsset(getAssets(), "GloriaHallelujah.ttf"));
+        binding.alphabethBottomPart.textView.setTypeface(Typeface.createFromAsset(getAssets(), "GloriaHallelujah.ttf"));
 
-        mBinding.alphabethTopPart.tvLetters.setTypeface(Typeface.createFromAsset(getAssets(), "GloriaHallelujah.ttf"));
-        mBinding.alphabethBottomPart.textView.setTypeface(Typeface.createFromAsset(getAssets(), "GloriaHallelujah.ttf"));
+        binding.alphabethTopPart.rvLetters.setLayoutManager(new LinearLayoutManager(this,  LinearLayoutManager.HORIZONTAL, false));
+        binding.alphabethTopPart.rvLetters.setHasFixedSize(true);
+        adapter = new AlphabethAdapter(this, this);
+        binding.alphabethTopPart.rvLetters.setAdapter(adapter);
 
-//        if(savedInstanceState == null){
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        mBinding.alphabethTopPart.rvLetters.setLayoutManager(layoutManager);
-        mBinding.alphabethTopPart.rvLetters.setHasFixedSize(true);
-        mAdapter = new AlphabethAdapter(this, this);
-        mBinding.alphabethTopPart.rvLetters.setAdapter(mAdapter);
-//        }
+        viewModel = ViewModelProviders.of(this).get(AlphabethViewModel.class);
+        setViewModelObservers();
 
         if (savedInstanceState != null) {
-            if (savedInstanceState.containsKey(LIST_INDEX_KEY)) {
-                int listIndex = savedInstanceState.getInt(LIST_INDEX_KEY);
-                mAdapter.ListIndex = listIndex;
-            }
-            if (savedInstanceState.containsKey(ITEM_INDEX_KEY)) {
-                int itemIndex = savedInstanceState.getInt(ITEM_INDEX_KEY);
-                mAdapter.ItemIndex = itemIndex;
-            }
-        }
+            int letterIndex = savedInstanceState.getInt(LETTER_INDEX_KEY);
+            viewModel.selectLetterIndex(letterIndex);
 
-        mAdapter.LoadSelectedItem();
+            int itemIndex = savedInstanceState.getInt(ITEM_INDEX_KEY);
+            viewModel.selectItemIndex(itemIndex);
+        }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(LIST_INDEX_KEY, mAdapter.ListIndex);
-        outState.putInt(ITEM_INDEX_KEY, mAdapter.ItemIndex);
+        outState.putInt(LETTER_INDEX_KEY, viewModel.getSelectedLetterIndex().getValue());
+        outState.putInt(ITEM_INDEX_KEY, viewModel.getSelectedItemIndex().getValue());
     }
 
     @Override
-    public void onClick(int index) {
-        refreshUI();
+    public void onLetterClick(int index) {
+        viewModel.selectLetterIndex(index);
     }
 
     public void ib_main_clicked(View view) {
-        mAdapter.ItemIndex = -1;
-        refreshUI();
+        viewModel.selectItemIndex(-1);
     }
 
     public void ib_01_clicked(View view) {
-        mAdapter.ItemIndex = 0;
-        refreshUI();
+        viewModel.selectItemIndex(0);
     }
 
     public void ib_02_clicked(View view) {
-        mAdapter.ItemIndex = 1;
-        refreshUI();
+        viewModel.selectItemIndex(1);
     }
 
     public void ib_03_clicked(View view) {
-        mAdapter.ItemIndex = 2;
-        refreshUI();
+        viewModel.selectItemIndex(2);
     }
 
     public void ib_04_clicked(View view) {
-        mAdapter.ItemIndex = 3;
-        refreshUI();
+        viewModel.selectItemIndex(3);
     }
 
     public void ib_05_clicked(View view) {
-        mAdapter.ItemIndex = 4;
-        refreshUI();
+        viewModel.selectItemIndex(4);
     }
 
-    private void refreshUI() {
-        int listIndex = mAdapter.ListIndex;
-        int itemIndex = mAdapter.ItemIndex;
+    private void setViewModelObservers() {
+        viewModel.getSelectedLetterIndex().observe(this, letterIndex -> {
+            AlphabethItem alphabethItem = adapter.getiItem(letterIndex);
 
-        String letter = mAdapter.mAlphabeth[listIndex].Letter;
-        mBinding.alphabethTopPart.tvLetters.setText(letter.toUpperCase() + letter.toLowerCase());
+            String letter = alphabethItem.Letter;
+            binding.alphabethTopPart.tvLetters.setText(letter.toUpperCase() + letter.toLowerCase());
 
-        if (itemIndex == 0) {
-            mBinding.alphabethBottomPart.textView.setText(mAdapter.mAlphabeth[listIndex].FirstImageName);
-            mBinding.alphabethTopPart.ibMain.setImageResource(mAdapter.mAlphabeth[listIndex].FirstImageResId);
-            mBinding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
-        } else if (itemIndex == 1) {
-            mBinding.alphabethBottomPart.textView.setText(mAdapter.mAlphabeth[listIndex].SecondImageName);
-            mBinding.alphabethTopPart.ibMain.setImageResource(mAdapter.mAlphabeth[listIndex].SecondImageResId);
-            mBinding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
-        } else if (itemIndex == 2) {
-            mBinding.alphabethBottomPart.textView.setText(mAdapter.mAlphabeth[listIndex].ThirdImageName);
-            mBinding.alphabethTopPart.ibMain.setImageResource(mAdapter.mAlphabeth[listIndex].ThirdImageResId);
-            mBinding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
-        } else if (itemIndex == 3) {
-            mBinding.alphabethBottomPart.textView.setText(mAdapter.mAlphabeth[listIndex].FourthImageName);
-            mBinding.alphabethTopPart.ibMain.setImageResource(mAdapter.mAlphabeth[listIndex].FourthImageResId);
-            mBinding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
-        } else if (itemIndex == 4) {
-            mBinding.alphabethBottomPart.textView.setText(mAdapter.mAlphabeth[listIndex].FifthImageName);
-            mBinding.alphabethTopPart.ibMain.setImageResource(mAdapter.mAlphabeth[listIndex].FifthImageResId);
-            mBinding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
-        } else {
-            mBinding.alphabethBottomPart.textView.setText("");
-            mBinding.alphabethTopPart.ibMain.setImageResource(0);
-            mBinding.alphabethTopPart.tvLetters.setVisibility(View.VISIBLE);
-        }
-        mBinding.alphabethBottomPart.ib01.setImageResource(mAdapter.mAlphabeth[listIndex].FirstImageResId);
-        mBinding.alphabethBottomPart.ib02.setImageResource(mAdapter.mAlphabeth[listIndex].SecondImageResId);
-        mBinding.alphabethBottomPart.ib03.setImageResource(mAdapter.mAlphabeth[listIndex].ThirdImageResId);
-        mBinding.alphabethBottomPart.ib04.setImageResource(mAdapter.mAlphabeth[listIndex].FourthImageResId);
-        mBinding.alphabethBottomPart.ib05.setImageResource(mAdapter.mAlphabeth[listIndex].FifthImageResId);
+            binding.alphabethBottomPart.ib01.setImageResource(alphabethItem.FirstImageResId);
+            binding.alphabethBottomPart.ib02.setImageResource(alphabethItem.SecondImageResId);
+            binding.alphabethBottomPart.ib03.setImageResource(alphabethItem.ThirdImageResId);
+            binding.alphabethBottomPart.ib04.setImageResource(alphabethItem.FourthImageResId);
+            binding.alphabethBottomPart.ib05.setImageResource(alphabethItem.FifthImageResId);
+        });
+
+        viewModel.getSelectedItemIndex().observe(this, itemIndex -> {
+            AlphabethItem alphabethItem = adapter.getiItem(viewModel.getSelectedLetterIndex().getValue());
+
+            switch (itemIndex) {
+                case 0:
+                    binding.alphabethBottomPart.textView.setText(alphabethItem.FirstImageName);
+                    binding.alphabethTopPart.ibMain.setImageResource(alphabethItem.FirstImageResId);
+                    binding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
+                    break;
+                case 1:
+                    binding.alphabethBottomPart.textView.setText(alphabethItem.SecondImageName);
+                    binding.alphabethTopPart.ibMain.setImageResource(alphabethItem.SecondImageResId);
+                    binding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
+                    break;
+                case 2:
+                    binding.alphabethBottomPart.textView.setText(alphabethItem.ThirdImageName);
+                    binding.alphabethTopPart.ibMain.setImageResource(alphabethItem.ThirdImageResId);
+                    binding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
+                    break;
+                case 3:
+                    binding.alphabethBottomPart.textView.setText(alphabethItem.FourthImageName);
+                    binding.alphabethTopPart.ibMain.setImageResource(alphabethItem.FourthImageResId);
+                    binding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
+                    break;
+                case 4:
+                    binding.alphabethBottomPart.textView.setText(alphabethItem.FifthImageName);
+                    binding.alphabethTopPart.ibMain.setImageResource(alphabethItem.FifthImageResId);
+                    binding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
+                    break;
+                default:
+                    binding.alphabethBottomPart.textView.setText("");
+                    binding.alphabethTopPart.ibMain.setImageResource(0);
+                    binding.alphabethTopPart.tvLetters.setVisibility(View.VISIBLE);
+                    break;
+            }
+        });
     }
 }

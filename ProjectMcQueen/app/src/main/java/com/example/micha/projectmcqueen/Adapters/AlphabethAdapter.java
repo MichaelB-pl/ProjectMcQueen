@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.example.micha.projectmcqueen.Models.AlphabethItem;
 import com.example.micha.projectmcqueen.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by micha on 03.10.2017.
  */
@@ -19,23 +22,16 @@ import com.example.micha.projectmcqueen.R;
 public class AlphabethAdapter extends RecyclerView.Adapter<AlphabethAdapter.AlphabethAdapterViewHolder> {
     private final Context mContext;
     private final AlphabethAdapterOnClickHandler mClickHandler;
-    public final AlphabethItem[] mAlphabeth;
-
-    public int ListIndex;
-    public int ItemIndex = -1;
+    private final List<AlphabethItem> alphabeth;
 
     public interface AlphabethAdapterOnClickHandler {
-        void onClick(int index);
+        void onLetterClick(int index);
     }
 
     public AlphabethAdapter(@NonNull Context context, AlphabethAdapterOnClickHandler handler) {
         mContext = context;
         mClickHandler = handler;
-        mAlphabeth = AlphabethItem.GetAlphabeth();
-    }
-
-    public void LoadSelectedItem(){
-        mClickHandler.onClick(ListIndex);
+        alphabeth = AlphabethItem.GetAlphabeth();
     }
 
     @Override
@@ -48,19 +44,23 @@ public class AlphabethAdapter extends RecyclerView.Adapter<AlphabethAdapter.Alph
     @Override
     public void onBindViewHolder(AlphabethAdapterViewHolder holder, int position) {
         holder.LetterTextView.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "GloriaHallelujah.ttf"));
-        holder.LetterTextView.setText(mAlphabeth[position].Letter);
+        holder.LetterTextView.setText(alphabeth.get(position).Letter);
     }
 
     @Override
     public int getItemCount() {
-        return mAlphabeth.length;
+        return alphabeth.size();
+    }
+
+    public AlphabethItem getiItem(int index) {
+        return alphabeth.get(index);
     }
 
     class AlphabethAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public final TextView LetterTextView;
+        private final TextView LetterTextView;
 
-        public AlphabethAdapterViewHolder(View view) {
+        private AlphabethAdapterViewHolder(View view) {
             super(view);
 
             LetterTextView = (TextView) view.findViewById(R.id.tv_letter);
@@ -70,9 +70,7 @@ public class AlphabethAdapter extends RecyclerView.Adapter<AlphabethAdapter.Alph
 
         @Override
         public void onClick(View v) {
-            ListIndex = getAdapterPosition();
-            ItemIndex = -1;
-            mClickHandler.onClick(ListIndex);
+            mClickHandler.onLetterClick(getAdapterPosition());
         }
     }
 }
