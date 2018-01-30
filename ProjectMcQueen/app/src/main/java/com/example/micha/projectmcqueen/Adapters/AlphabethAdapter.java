@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.micha.projectmcqueen.models.Alphabeth;
 import com.example.micha.projectmcqueen.models.AlphabethItem;
 import com.example.micha.projectmcqueen.R;
 
@@ -30,7 +31,7 @@ public class AlphabethAdapter extends RecyclerView.Adapter<AlphabethAdapter.Alph
     public AlphabethAdapter(@NonNull Context context, AlphabethAdapterOnClickHandler handler) {
         mContext = context;
         mClickHandler = handler;
-        alphabeth = AlphabethItem.GetAlphabeth();
+        alphabeth = Alphabeth.getAlphabeth();
     }
 
     @Override
@@ -43,7 +44,7 @@ public class AlphabethAdapter extends RecyclerView.Adapter<AlphabethAdapter.Alph
     @Override
     public void onBindViewHolder(AlphabethAdapterViewHolder holder, int position) {
         holder.LetterTextView.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "GloriaHallelujah.ttf"));
-        holder.LetterTextView.setText(alphabeth.get(position).Letter);
+        holder.LetterTextView.setText(alphabeth.get(position).letter);
     }
 
     @Override

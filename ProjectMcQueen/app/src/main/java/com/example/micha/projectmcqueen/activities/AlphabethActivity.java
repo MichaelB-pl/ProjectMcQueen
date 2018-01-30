@@ -3,16 +3,28 @@ package com.example.micha.projectmcqueen.activities;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
-import com.example.micha.projectmcqueen.adapters.AlphabethAdapter;
-import com.example.micha.projectmcqueen.models.AlphabethItem;
 import com.example.micha.projectmcqueen.R;
+import com.example.micha.projectmcqueen.adapters.AlphabethAdapter;
 import com.example.micha.projectmcqueen.databinding.ActivityAlphabethBinding;
+import com.example.micha.projectmcqueen.models.AlphabethItem;
 import com.example.micha.projectmcqueen.viewmodels.AlphabethViewModel;
+import com.google.android.exoplayer2.DefaultLoadControl;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.LoadControl;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 
 public class AlphabethActivity extends AppCompatActivity implements AlphabethAdapter.AlphabethAdapterOnClickHandler {
     private static final String LETTER_INDEX_KEY = "letter-index";
@@ -21,6 +33,9 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
     private ActivityAlphabethBinding binding;
     private AlphabethAdapter adapter;
     private AlphabethViewModel viewModel;
+
+    private SimpleExoPlayer exoPlayer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +48,7 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
         binding.alphabethTopPart.tvLetters.setTypeface(Typeface.createFromAsset(getAssets(), "GloriaHallelujah.ttf"));
         binding.alphabethBottomPart.textView.setTypeface(Typeface.createFromAsset(getAssets(), "GloriaHallelujah.ttf"));
 
-        binding.alphabethTopPart.rvLetters.setLayoutManager(new LinearLayoutManager(this,  LinearLayoutManager.HORIZONTAL, false));
+        binding.alphabethTopPart.rvLetters.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binding.alphabethTopPart.rvLetters.setHasFixedSize(true);
         adapter = new AlphabethAdapter(this, this);
         binding.alphabethTopPart.rvLetters.setAdapter(adapter);
@@ -48,6 +63,13 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
             int itemIndex = savedInstanceState.getInt(ITEM_INDEX_KEY);
             viewModel.selectItemIndex(itemIndex);
         }
+
+        initializePlayer();
+
+        binding.alphabethTopPart.tvLetters.setOnClickListener(v -> {
+            AlphabethItem alphabethItem = adapter.getiItem(viewModel.getSelectedLetterIndex().getValue());
+            playAudio(Uri.parse(alphabethItem.getLetterAudioUri()));
+        });
     }
 
     @Override
@@ -58,46 +80,62 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        releasePlayer();
+    }
+
+    //region Clicks
+    @Override
     public void onLetterClick(int index) {
         viewModel.selectLetterIndex(index);
+        AlphabethItem alphabethItem = adapter.getiItem(index);
+        playAudio(Uri.parse(alphabethItem.getLetterAudioUri()));
     }
 
     public void ib_main_clicked(View view) {
         viewModel.selectItemIndex(-1);
+        exoPlayer.stop();
     }
 
     public void ib_01_clicked(View view) {
         viewModel.selectItemIndex(0);
+//        playAudio(Uri.parse("asset:///letters/Monk's theme song instrumental.mp3"));
     }
 
     public void ib_02_clicked(View view) {
         viewModel.selectItemIndex(1);
+//        playAudio(Uri.parse("asset:///letters/Monk's theme song instrumental.mp3"));
     }
 
     public void ib_03_clicked(View view) {
         viewModel.selectItemIndex(2);
+//        playAudio(Uri.parse("asset:///letters/Monk's theme song instrumental.mp3"));
     }
 
     public void ib_04_clicked(View view) {
         viewModel.selectItemIndex(3);
+//        playAudio(Uri.parse("asset:///letters/Monk's theme song instrumental.mp3"));
     }
 
     public void ib_05_clicked(View view) {
         viewModel.selectItemIndex(4);
+//        playAudio(Uri.parse("asset:///letters/Monk's theme song instrumental.mp3"));
     }
+    //endregion Clicks
 
     private void setViewModelObservers() {
         viewModel.getSelectedLetterIndex().observe(this, letterIndex -> {
             AlphabethItem alphabethItem = adapter.getiItem(letterIndex);
 
-            String letter = alphabethItem.Letter;
+            String letter = alphabethItem.letter;
             binding.alphabethTopPart.tvLetters.setText(letter.toUpperCase() + letter.toLowerCase());
 
-            binding.alphabethBottomPart.ib01.setImageResource(alphabethItem.FirstImageResId);
-            binding.alphabethBottomPart.ib02.setImageResource(alphabethItem.SecondImageResId);
-            binding.alphabethBottomPart.ib03.setImageResource(alphabethItem.ThirdImageResId);
-            binding.alphabethBottomPart.ib04.setImageResource(alphabethItem.FourthImageResId);
-            binding.alphabethBottomPart.ib05.setImageResource(alphabethItem.FifthImageResId);
+            binding.alphabethBottomPart.ib01.setImageResource(alphabethItem.firstImageResId);
+            binding.alphabethBottomPart.ib02.setImageResource(alphabethItem.secondImageResId);
+            binding.alphabethBottomPart.ib03.setImageResource(alphabethItem.thirdImageResId);
+            binding.alphabethBottomPart.ib04.setImageResource(alphabethItem.fourthImageResId);
+            binding.alphabethBottomPart.ib05.setImageResource(alphabethItem.fifthImageResId);
         });
 
         viewModel.getSelectedItemIndex().observe(this, itemIndex -> {
@@ -105,36 +143,74 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
 
             switch (itemIndex) {
                 case 0:
-                    binding.alphabethBottomPart.textView.setText(alphabethItem.FirstImageName);
-                    binding.alphabethTopPart.ibMain.setImageResource(alphabethItem.FirstImageResId);
+                    binding.alphabethBottomPart.textView.setText(alphabethItem.firstImageName);
+                    binding.alphabethTopPart.ibMain.setImageResource(alphabethItem.firstImageResId);
+                    binding.alphabethTopPart.ibMain.setVisibility(View.VISIBLE);
                     binding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
                     break;
                 case 1:
-                    binding.alphabethBottomPart.textView.setText(alphabethItem.SecondImageName);
-                    binding.alphabethTopPart.ibMain.setImageResource(alphabethItem.SecondImageResId);
+                    binding.alphabethBottomPart.textView.setText(alphabethItem.secondImageName);
+                    binding.alphabethTopPart.ibMain.setImageResource(alphabethItem.secondImageResId);
+                    binding.alphabethTopPart.ibMain.setVisibility(View.VISIBLE);
                     binding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
                     break;
                 case 2:
-                    binding.alphabethBottomPart.textView.setText(alphabethItem.ThirdImageName);
-                    binding.alphabethTopPart.ibMain.setImageResource(alphabethItem.ThirdImageResId);
+                    binding.alphabethBottomPart.textView.setText(alphabethItem.thirdImageName);
+                    binding.alphabethTopPart.ibMain.setImageResource(alphabethItem.thirdImageResId);
+                    binding.alphabethTopPart.ibMain.setVisibility(View.VISIBLE);
                     binding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
                     break;
                 case 3:
-                    binding.alphabethBottomPart.textView.setText(alphabethItem.FourthImageName);
-                    binding.alphabethTopPart.ibMain.setImageResource(alphabethItem.FourthImageResId);
+                    binding.alphabethBottomPart.textView.setText(alphabethItem.fourthImageName);
+                    binding.alphabethTopPart.ibMain.setImageResource(alphabethItem.fourthImageResId);
+                    binding.alphabethTopPart.ibMain.setVisibility(View.VISIBLE);
                     binding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
                     break;
                 case 4:
-                    binding.alphabethBottomPart.textView.setText(alphabethItem.FifthImageName);
-                    binding.alphabethTopPart.ibMain.setImageResource(alphabethItem.FifthImageResId);
+                    binding.alphabethBottomPart.textView.setText(alphabethItem.fifthImageName);
+                    binding.alphabethTopPart.ibMain.setImageResource(alphabethItem.fifthImageResId);
+                    binding.alphabethTopPart.ibMain.setVisibility(View.VISIBLE);
                     binding.alphabethTopPart.tvLetters.setVisibility(View.GONE);
                     break;
                 default:
                     binding.alphabethBottomPart.textView.setText("");
                     binding.alphabethTopPart.ibMain.setImageResource(0);
+                    binding.alphabethTopPart.ibMain.setVisibility(View.GONE);
                     binding.alphabethTopPart.tvLetters.setVisibility(View.VISIBLE);
                     break;
             }
         });
+    }
+
+    private void initializePlayer() {
+        if (exoPlayer == null) {
+            TrackSelector trackSelector = new DefaultTrackSelector();
+            LoadControl loadControl = new DefaultLoadControl();
+            exoPlayer = ExoPlayerFactory.newSimpleInstance(this, trackSelector, loadControl);
+        }
+    }
+
+    private void releasePlayer() {
+        if (exoPlayer != null) {
+            exoPlayer.stop();
+            exoPlayer.release();
+            exoPlayer = null;
+        }
+    }
+
+    private void playAudio(Uri mediaUri) {
+        exoPlayer.stop();
+//        exoPlayer.release();
+
+        String userAgent = Util.getUserAgent(this, "ProjectMcQueen");
+        MediaSource mediaSource = new ExtractorMediaSource(
+                mediaUri,
+                new DefaultDataSourceFactory(this, userAgent),
+                new DefaultExtractorsFactory(),
+                null,
+                null);
+
+        exoPlayer.prepare(mediaSource);
+        exoPlayer.setPlayWhenReady(true);
     }
 }
