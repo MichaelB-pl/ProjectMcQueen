@@ -133,27 +133,22 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
 
     public void ib_01_clicked(View view) {
         trySelectItemIndex(0);
-//        playAudio(Uri.parse("asset:///letters/Monk's theme song instrumental.mp3"));
     }
 
     public void ib_02_clicked(View view) {
         trySelectItemIndex(1);
-//        playAudio(Uri.parse("asset:///letters/Monk's theme song instrumental.mp3"));
     }
 
     public void ib_03_clicked(View view) {
         trySelectItemIndex(2);
-//        playAudio(Uri.parse("asset:///letters/Monk's theme song instrumental.mp3"));
     }
 
     public void ib_04_clicked(View view) {
         trySelectItemIndex(3);
-//        playAudio(Uri.parse("asset:///letters/Monk's theme song instrumental.mp3"));
     }
 
     public void ib_05_clicked(View view) {
         trySelectItemIndex(4);
-//        playAudio(Uri.parse("asset:///letters/Monk's theme song instrumental.mp3"));
     }
     //endregion Clicks
 
@@ -231,17 +226,16 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
         }
     }
 
-    private void trySelectItemIndex(int index){
+    private void trySelectItemIndex(int index) {
         AlphabethItem alphabethItem = adapter.getiItem(viewModel.getSelectedLetterIndex().getValue());
-        if(!alphabethItem.isItemEmpty(index)){
+        if (!alphabethItem.isItemEmpty(index)) {
             viewModel.selectItemIndex(index);
-            exoPlayer.stop();
+            playAudio(Uri.parse(alphabethItem.getItemAudioUri(index)));
         }
     }
 
     private void playAudio(Uri mediaUri) {
         exoPlayer.stop();
-//        exoPlayer.release();
 
         String userAgent = Util.getUserAgent(this, "ProjectMcQueen");
         MediaSource mediaSource = new ExtractorMediaSource(

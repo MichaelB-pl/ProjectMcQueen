@@ -51,6 +51,31 @@ public class AlphabethItem {
         return uri;
     }
 
+    public String getItemAudioUri(int index) {
+        String itemName;
+        switch (index) {
+            case 0:
+                itemName = firstImageName.toLowerCase();
+                break;
+            case 1:
+                itemName = secondImageName.toLowerCase();
+                break;
+            case 2:
+                itemName = thirdImageName.toLowerCase();
+                break;
+            case 3:
+                itemName = fourthImageName.toLowerCase();
+                break;
+            case 4:
+                itemName = fifthImageName.toLowerCase();
+                break;
+            default:
+                return "";
+        }
+        String uri = getLetterUriFolder() + itemName + ".mp3";
+        return uri;
+    }
+
     public boolean isItemEmpty(int index) {
         switch (index) {
             case 0:
