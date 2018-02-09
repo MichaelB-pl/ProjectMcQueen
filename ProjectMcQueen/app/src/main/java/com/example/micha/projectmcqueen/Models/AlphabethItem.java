@@ -2,6 +2,8 @@ package com.example.micha.projectmcqueen.models;
 
 import android.net.Uri;
 
+import com.example.micha.projectmcqueen.R;
+
 /**
  * Created by micha on 03.10.2017.
  */
@@ -47,5 +49,26 @@ public class AlphabethItem {
     public String getLetterAudioUri() {
         String uri = getLetterUriFolder() + letter.toLowerCase() + ".mp3";
         return uri;
+    }
+
+    public boolean isItemEmpty(int index) {
+        switch (index) {
+            case 0:
+                return isItemEmpty(firstImageName, firstImageResId);
+            case 1:
+                return isItemEmpty(secondImageName, secondImageResId);
+            case 2:
+                return isItemEmpty(thirdImageName, thirdImageResId);
+            case 3:
+                return isItemEmpty(fourthImageName, fourthImageResId);
+            case 4:
+                return isItemEmpty(fifthImageName, fifthImageResId);
+            default:
+                return true;
+        }
+    }
+
+    private boolean isItemEmpty(String imageName, int imageId) {
+        return imageName.equals("") || imageId == R.drawable.transparent_rectangle;
     }
 }

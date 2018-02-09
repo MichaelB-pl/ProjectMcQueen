@@ -15,18 +15,27 @@ public class Alphabeth {
         alphabeth.add(new AlphabethItem("A",
                 "Agrafka", "Ananas", "Aparat", "Arbuz", "Autobus",
                 R.drawable.ic_safety_pin, R.drawable.ic_pineapple, R.drawable.ic_camera, R.drawable.ic_watermelon, R.drawable.ic_bus));
+        alphabeth.add(new AlphabethItem("Ą",
+                "", "", "", "", "",
+                R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle));
         alphabeth.add(new AlphabethItem("B",
                 "Balon", "Banan", "Biedronka", "Bocian", "Butelka",
                 R.drawable.ic_balloons, R.drawable.ic_banana, R.drawable.ic_ladybug, R.drawable.ic_stork, R.drawable.ic_bottle_of_water));
         alphabeth.add(new AlphabethItem("C",
                 "Chmura", "Ciężarówka", "Cytryna", "Czapka", "Chomik",
                 R.drawable.ic_cloud, R.drawable.ic_truck, R.drawable.ic_lemon, R.drawable.ic_winter_hat, R.drawable.ic_hamster));
+        alphabeth.add(new AlphabethItem("Ć",
+                "", "", "", "", "",
+                R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle));
         alphabeth.add(new AlphabethItem("D",
                 "Delfin", "Dom", "Drzewo", "Dynia", "Dźwig",
                 R.drawable.ic_dolphin, R.drawable.ic_house, R.drawable.ic_tree, R.drawable.ic_pumpkin, R.drawable.ic_trucking));
         alphabeth.add(new AlphabethItem("E",
                 "", "", "", "Ekran", "Ekierka",
                 R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.ic_monitor, R.drawable.ic_set_square));
+        alphabeth.add(new AlphabethItem("Ę",
+                "", "", "", "", "",
+                R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle));
         alphabeth.add(new AlphabethItem("F",
                 "Fala", "Flet", "Foka", "Fortepian", "Frytki",
                 R.drawable.ic_wave, R.drawable.ic_flute, R.drawable.ic_seal, R.drawable.ic_piano, R.drawable.ic_french_fries));
@@ -57,9 +66,15 @@ public class Alphabeth {
         alphabeth.add(new AlphabethItem("N",
                 "Niedźwiedź", "Nietoperz", "Nosorożec", "Nożyczki", "Nuta",
                 R.drawable.ic_bear, R.drawable.ic_bat, R.drawable.ic_rhino, R.drawable.ic_scissors, R.drawable.ic_note));
+        alphabeth.add(new AlphabethItem("Ń",
+                "", "", "", "", "",
+                R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle));
         alphabeth.add(new AlphabethItem("O",
                 "Okulary", "Ołówek", "Osiołek", "Ośmiornica", "Owca",
                 R.drawable.ic_glasses, R.drawable.ic_pencil, R.drawable.ic_donkey, R.drawable.ic_octopus, R.drawable.ic_sheep));
+        alphabeth.add(new AlphabethItem("Ó",
+                "", "", "", "", "",
+                R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle));
         alphabeth.add(new AlphabethItem("P",
                 "Pingwin", "Pociąg", "Poduszka", "Pomarańcza", "Pomidor",
                 R.drawable.ic_penguin, R.drawable.ic_train, R.drawable.ic_cushion, R.drawable.ic_orange, R.drawable.ic_tomato));
@@ -75,12 +90,21 @@ public class Alphabeth {
         alphabeth.add(new AlphabethItem("T",
                 "Telefon", "Traktor", "Truskawka", "Tukan", "Tygrys",
                 R.drawable.ic_phone, R.drawable.ic_tractor, R.drawable.ic_strawberry, R.drawable.ic_toucan, R.drawable.ic_tiger));
+        alphabeth.add(new AlphabethItem("U",
+                "", "", "", "", "",
+                R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle));
         alphabeth.add(new AlphabethItem("W",
                 "Wąż", "Wiatrak", "Widelec", "Wielbłąd", "Wiewiórka",
                 R.drawable.ic_snake, R.drawable.ic_windmill, R.drawable.ic_fork, R.drawable.ic_camel, R.drawable.ic_squirrel));
+        alphabeth.add(new AlphabethItem("Y",
+                "", "", "", "", "",
+                R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle));
         alphabeth.add(new AlphabethItem("Z",
                 "Zając", "Zamek", "Ząb", "Zebra", "Zupa",
                 R.drawable.ic_rabbit, R.drawable.ic_castle, R.drawable.ic_tooth, R.drawable.ic_zebra, R.drawable.ic_soup));
+        alphabeth.add(new AlphabethItem("Ź",
+                "", "", "", "", "",
+                R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle, R.drawable.transparent_rectangle));
         alphabeth.add(new AlphabethItem("Ż",
                 "", "Żaba", "", "Żółw", "Żyrafa",
                 R.drawable.transparent_rectangle, R.drawable.ic_frog, R.drawable.transparent_rectangle, R.drawable.ic_turtle, R.drawable.ic_giraffe));

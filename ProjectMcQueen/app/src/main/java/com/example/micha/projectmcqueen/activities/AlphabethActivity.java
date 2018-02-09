@@ -132,27 +132,27 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
     }
 
     public void ib_01_clicked(View view) {
-        viewModel.selectItemIndex(0);
+        trySelectItemIndex(0);
 //        playAudio(Uri.parse("asset:///letters/Monk's theme song instrumental.mp3"));
     }
 
     public void ib_02_clicked(View view) {
-        viewModel.selectItemIndex(1);
+        trySelectItemIndex(1);
 //        playAudio(Uri.parse("asset:///letters/Monk's theme song instrumental.mp3"));
     }
 
     public void ib_03_clicked(View view) {
-        viewModel.selectItemIndex(2);
+        trySelectItemIndex(2);
 //        playAudio(Uri.parse("asset:///letters/Monk's theme song instrumental.mp3"));
     }
 
     public void ib_04_clicked(View view) {
-        viewModel.selectItemIndex(3);
+        trySelectItemIndex(3);
 //        playAudio(Uri.parse("asset:///letters/Monk's theme song instrumental.mp3"));
     }
 
     public void ib_05_clicked(View view) {
-        viewModel.selectItemIndex(4);
+        trySelectItemIndex(4);
 //        playAudio(Uri.parse("asset:///letters/Monk's theme song instrumental.mp3"));
     }
     //endregion Clicks
@@ -228,6 +228,14 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
             exoPlayer.stop();
             exoPlayer.release();
             exoPlayer = null;
+        }
+    }
+
+    private void trySelectItemIndex(int index){
+        AlphabethItem alphabethItem = adapter.getiItem(viewModel.getSelectedLetterIndex().getValue());
+        if(!alphabethItem.isItemEmpty(index)){
+            viewModel.selectItemIndex(index);
+            exoPlayer.stop();
         }
     }
 
