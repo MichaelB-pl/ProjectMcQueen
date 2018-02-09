@@ -18,16 +18,26 @@ import com.example.micha.projectmcqueen.databinding.ActivityAlphabethBinding;
 import com.example.micha.projectmcqueen.models.AlphabethItem;
 import com.example.micha.projectmcqueen.viewmodels.AlphabethViewModel;
 import com.google.android.exoplayer2.DefaultLoadControl;
+import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.TrackGroup;
+import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AlphabethActivity extends AppCompatActivity implements AlphabethAdapter.AlphabethAdapterOnClickHandler {
     private static final String LETTER_INDEX_KEY = "letter-index";
@@ -39,6 +49,8 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
     private AlphabethViewModel viewModel;
 
     private SimpleExoPlayer exoPlayer;
+    private ExoPlayer.EventListener exoPlayerListener;
+    private final List<Uri> playlist = new ArrayList<>();
 
     private final Handler hideHandler = new Handler();
     private final Runnable hideRunnable = new Runnable() {
@@ -86,7 +98,15 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
 
         binding.alphabethTopPart.tvLetters.setOnClickListener(v -> {
             AlphabethItem alphabethItem = adapter.getiItem(viewModel.getSelectedLetterIndex().getValue());
-            playAudio(Uri.parse(alphabethItem.getLetterAudioUri()));
+            playSingleAudio((alphabethItem.getLetterAudioUri()));
+        });
+
+        binding.alphabethBottomPart.textView.setOnClickListener(view -> {
+            AlphabethItem alphabethItem = adapter.getiItem(viewModel.getSelectedLetterIndex().getValue());
+            int index = viewModel.getSelectedItemIndex().getValue();
+            List<String> uris = alphabethItem.getItemLettersAudioUri(index);
+            uris.add(alphabethItem.getItemAudioUri(index));
+            playAudioList(uris);
         });
     }
 
@@ -123,11 +143,12 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
     public void onLetterClick(int index) {
         viewModel.selectLetterIndex(index);
         AlphabethItem alphabethItem = adapter.getiItem(index);
-        playAudio(Uri.parse(alphabethItem.getLetterAudioUri()));
+        playSingleAudio(alphabethItem.getLetterAudioUri());
     }
 
     public void ib_main_clicked(View view) {
         viewModel.selectItemIndex(-1);
+        clearPlaylist();
         exoPlayer.stop();
     }
 
@@ -219,6 +240,7 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
     }
 
     private void releasePlayer() {
+        clearPlaylist();
         if (exoPlayer != null) {
             exoPlayer.stop();
             exoPlayer.release();
@@ -230,7 +252,7 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
         AlphabethItem alphabethItem = adapter.getiItem(viewModel.getSelectedLetterIndex().getValue());
         if (!alphabethItem.isItemEmpty(index)) {
             viewModel.selectItemIndex(index);
-            playAudio(Uri.parse(alphabethItem.getItemAudioUri(index)));
+            playSingleAudio(alphabethItem.getItemAudioUri(index));
         }
     }
 
@@ -247,5 +269,80 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
 
         exoPlayer.prepare(mediaSource);
         exoPlayer.setPlayWhenReady(true);
+    }
+
+    private void playSingleAudio(String uri) {
+        clearPlaylist();
+        exoPlayer.stop();
+
+        playAudio(Uri.parse(uri));
+    }
+
+    private void playAudioList(List<String> uriS) {
+        clearPlaylist();
+        exoPlayer.stop();
+
+        for (String uri : uriS) {
+            playlist.add(Uri.parse(uri));
+        }
+        exoPlayerListener = new ExoPlayer.EventListener() {
+            @Override
+            public void onTimelineChanged(Timeline timeline, Object manifest) {
+
+            }
+
+            @Override
+            public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+
+            }
+
+            @Override
+            public void onLoadingChanged(boolean isLoading) {
+
+            }
+
+            @Override
+            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+                switch (playbackState) {
+                    case ExoPlayer.STATE_ENDED:
+                        if (playlist.size() > 0) {
+                            Uri uri = playlist.get(0);
+                            playlist.remove(uri);
+                            playAudio(uri);
+                        } else {
+                            clearPlaylist();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onPlayerError(ExoPlaybackException error) {
+
+            }
+
+            @Override
+            public void onPositionDiscontinuity() {
+
+            }
+        };
+        exoPlayer.addListener(exoPlayerListener);
+        if (playlist.size() > 0) {
+            Uri uri = playlist.get(0);
+            playlist.remove(uri);
+            playAudio(uri);
+        }
+    }
+
+    private void clearPlaylist() {
+        if (exoPlayerListener != null) {
+            exoPlayer.removeListener(exoPlayerListener);
+            exoPlayerListener = null;
+        }
+        if (playlist.size() > 0) {
+            playlist.clear();
+        }
     }
 }

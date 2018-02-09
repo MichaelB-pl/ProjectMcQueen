@@ -4,6 +4,9 @@ import android.net.Uri;
 
 import com.example.micha.projectmcqueen.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by micha on 03.10.2017.
  */
@@ -41,13 +44,21 @@ public class AlphabethItem {
         this.fifthImageResId = fifthImageResId;
     }
 
-    private String getLetterUriFolder() {
+    /*private String getLetterUriFolder() {
+        return getLetterUriFolder(this.letter);
+    }*/
+
+    private static String getLetterUriFolder(String letter) {
         String uri = "asset:///letters/" + letter.toLowerCase() + "/";
         return uri;
     }
 
     public String getLetterAudioUri() {
-        String uri = getLetterUriFolder() + letter.toLowerCase() + ".mp3";
+        return getLetterAudioUri(this.letter);
+    }
+
+    private static String getLetterAudioUri(String letter) {
+        String uri = getLetterUriFolder(letter) + letter.toLowerCase() + ".mp3";
         return uri;
     }
 
@@ -72,8 +83,39 @@ public class AlphabethItem {
             default:
                 return "";
         }
-        String uri = getLetterUriFolder() + itemName + ".mp3";
+        String uri = getLetterUriFolder(this.letter) + itemName + ".mp3";
         return uri;
+    }
+
+    public List<String> getItemLettersAudioUri(int index) {
+        List<String> uris = new ArrayList<>();
+        String itemName;
+        switch (index) {
+            case 0:
+                itemName = firstImageName.toLowerCase();
+                break;
+            case 1:
+                itemName = secondImageName.toLowerCase();
+                break;
+            case 2:
+                itemName = thirdImageName.toLowerCase();
+                break;
+            case 3:
+                itemName = fourthImageName.toLowerCase();
+                break;
+            case 4:
+                itemName = fifthImageName.toLowerCase();
+                break;
+            default:
+                return uris;
+        }
+        char[] letters = itemName.toCharArray();
+        for (int i = 0; i < letters.length; i++) {
+            String letter = Character.toString(letters[i]);
+            String uri = getLetterAudioUri(letter);
+            uris.add(uri);
+        }
+        return uris;
     }
 
     public boolean isItemEmpty(int index) {
