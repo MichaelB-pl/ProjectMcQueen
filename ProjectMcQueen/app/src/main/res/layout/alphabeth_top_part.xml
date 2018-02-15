@@ -38,7 +38,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="#0000"
-            android:onClick="ib_main_clicked"
             android:padding="16dp"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
