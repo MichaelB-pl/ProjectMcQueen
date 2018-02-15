@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryExtraLight">
+
+        <View
+            android:id="@+id/view_text_space"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/colorPrimaryDark"/>
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/view_text_space"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/ic_banana"
+            android:padding="16dp"
+            android:scaleType="fitCenter"/>
+
+        <TextView
+            android:id="@+id/tv_complete_text_blind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view_text_space"
+            tools:text="Banan" />
+
+        <TextView
+            android:id="@+id/tv_letter_blind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="n"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            android:textSize="@dimen/alphabeth_big_letter_size"/>
+
+        <TextView
+            android:id="@+id/tv_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_complete_text_blind"
+            app:layout_constraintStart_toStartOf="@+id/tv_complete_text_blind"
+            app:layout_constraintTop_toTopOf="@+id/tv_complete_text_blind"
+            tools:text="Ban" />
+
+        <TextView
+            android:id="@+id/tv_moving_letter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="a"
+            app:layout_constraintStart_toEndOf="@+id/tv_text"
+            app:layout_constraintTop_toTopOf="@+id/tv_text"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_text"/>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

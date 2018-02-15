@@ -4,4 +4,6 @@
 
     <dimen name="alphabethTitleBarHeight">32dp</dimen>
     <dimen name="alphabethTitleHeight">16dp</dimen>
+
+    <dimen name="alphabeth_big_letter_size">145.5dp</dimen>
 </resources>

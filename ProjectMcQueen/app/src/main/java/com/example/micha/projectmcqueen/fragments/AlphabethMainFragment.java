@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -158,11 +159,10 @@ public class AlphabethMainFragment extends Fragment implements AlphabethAdapter.
             viewModel.playSingleAudio(getContext(), (alphabethItem.getLetterAudioUri()));
         });
         binding.alphabethBottomPart.textView.setOnClickListener(view -> {
-            AlphabethItem alphabethItem = adapter.getiItem(viewModel.getSelectedLetterIndex().getValue());
-            int index = viewModel.getSelectedItemIndex().getValue();
-            List<String> uris = alphabethItem.getItemLettersAudioUri(index);
-            uris.add(alphabethItem.getItemAudioUri(index));
-            viewModel.playAudioList(getContext(), uris);
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.fl_fragment_container, AlphabethSpellFragment.newInstance());
+            transaction.addToBackStack(null);
+            transaction.commit();
         });
         binding.alphabethTopPart.ibMain.setOnClickListener(view -> {
             viewModel.selectItemIndex(-1);

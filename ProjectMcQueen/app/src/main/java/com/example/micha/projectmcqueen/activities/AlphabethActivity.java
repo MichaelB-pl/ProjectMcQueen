@@ -64,6 +64,12 @@ public class AlphabethActivity extends AppCompatActivity {
         viewModel.initializePlayer(this);
     }
 
+    @Override
+    public void onBackPressed() {
+        viewModel.clearPlaylist();
+        super.onBackPressed();
+    }
+
     private void makeActivityFullscreen() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
