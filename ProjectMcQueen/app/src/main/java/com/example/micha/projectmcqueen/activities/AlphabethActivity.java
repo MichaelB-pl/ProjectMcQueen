@@ -94,8 +94,6 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
             viewModel.selectItemIndex(itemIndex);
         }
 
-        initializePlayer();
-
         binding.alphabethTopPart.tvLetters.setOnClickListener(v -> {
             AlphabethItem alphabethItem = adapter.getiItem(viewModel.getSelectedLetterIndex().getValue());
             playSingleAudio((alphabethItem.getLetterAudioUri()));
@@ -118,8 +116,8 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         releasePlayer();
     }
 
@@ -127,6 +125,7 @@ public class AlphabethActivity extends AppCompatActivity implements AlphabethAda
     protected void onResume() {
         super.onResume();
         makeActivityFullscreen();
+        initializePlayer();
     }
 
     private void makeActivityFullscreen() {
