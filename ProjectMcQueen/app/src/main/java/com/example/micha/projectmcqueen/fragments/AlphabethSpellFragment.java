@@ -16,10 +16,13 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.SharedElementCallback;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.micha.projectmcqueen.R;
@@ -163,7 +166,7 @@ public class AlphabethSpellFragment extends Fragment {
         textSizeAnimator.setDuration(ANIMATION_LENGTH);
         textSizeAnimator.addUpdateListener(valueAnimator -> {
             float textSize = (float) valueAnimator.getAnimatedValue();
-            binding.tvMovingLetter.setTextSize(textSize);
+            binding.tvMovingLetter.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             if (textSize == smallLetter) {
                 tryPlayPlaylistItem();
             }
@@ -209,11 +212,16 @@ public class AlphabethSpellFragment extends Fragment {
         float textSize = binding.tvLetterBlind.getTextSize();
         int[] bigLetterLocation = new int[2];
         int[] movingLetterLocation = new int[2];
-        binding.tvLetterBlind.getLocationOnScreen(bigLetterLocation);
-        binding.tvMovingLetter.getLocationOnScreen(movingLetterLocation);
+        binding.tvLetterBlind.getLocationInWindow(bigLetterLocation);
+        binding.tvMovingLetter.getLocationInWindow(movingLetterLocation);
 
         int xToMove = bigLetterLocation[0] - movingLetterLocation[0];
         int yToMove = bigLetterLocation[1] - movingLetterLocation[1];
+//        int xDis = ;
+        int lWidth = binding.tvLetterBlind.getWidth();
+        int mWidth = binding.tvMovingLetter.getWidth();
+//        xToMove -= (binding.tvLetterBlind.getWidth()) - binding.tvMovingLetter.getWidth() / 2;
+        yToMove += (binding.tvLetterBlind.getHeight() - binding.tvMovingLetter.getHeight()) / 2;
 
         int color = Color.BLACK;
         /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
@@ -222,7 +230,7 @@ public class AlphabethSpellFragment extends Fragment {
             color = getResources().getColor(R.color.colorAccent);
         }*/
 
-        binding.tvMovingLetter.setTextSize(textSize);
+        binding.tvMovingLetter.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
         binding.tvMovingLetter.setTranslationX((float) xToMove);
         binding.tvMovingLetter.setTranslationY((float) yToMove);
         binding.tvMovingLetter.setTextColor(color);
@@ -273,6 +281,11 @@ public class AlphabethSpellFragment extends Fragment {
                 }
                 binding.tvText.setText(actualText + lastLetter);
                 binding.tvMovingLetter.setText(letter);
+
+                /*Uri uri2 = playlist.get(1);
+                String path2 = uri2.getLastPathSegment();
+                String[] words2 = path2.split(".mp3");
+                String letter2 = words2[0];*/
                 binding.tvLetterBlind.setText(letter);
 
                 setMovingLetterStartPosition();

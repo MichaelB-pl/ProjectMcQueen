@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -161,9 +162,20 @@ public class AlphabethMainFragment extends Fragment implements AlphabethAdapter.
         });
         binding.alphabethBottomPart.textView.setOnClickListener(view -> {
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                String tl = binding.alphabethBottomPart.linearLayout.getTransitionName();
+                transaction.addSharedElement(binding.alphabethBottomPart.linearLayout, binding.alphabethBottomPart.linearLayout.getTransitionName());
+                transaction.addSharedElement(binding.alphabethTopPart.ibMain, binding.alphabethTopPart.ibMain.getTransitionName());
+                transaction.addSharedElement(binding.alphabethBottomPart.textView, binding.alphabethBottomPart.textView.getTransitionName());
+            }
+
             transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
+
             transaction.replace(R.id.fl_fragment_container, AlphabethSpellFragment.newInstance());
             transaction.addToBackStack(null);
+//transaction.commitAllowingStateLoss();
+
             transaction.commit();
         });
         binding.alphabethTopPart.ibMain.setOnClickListener(view -> {
