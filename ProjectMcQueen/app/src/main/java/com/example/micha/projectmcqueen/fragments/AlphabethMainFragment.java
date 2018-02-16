@@ -3,6 +3,7 @@ package com.example.micha.projectmcqueen.fragments;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -141,7 +142,7 @@ public class AlphabethMainFragment extends Fragment implements AlphabethAdapter.
         AlphabethItem alphabethItem = adapter.getiItem(viewModel.getSelectedLetterIndex().getValue());
         if (!alphabethItem.isItemEmpty(index)) {
             viewModel.selectItemIndex(index);
-            viewModel.playSingleAudio(getContext(), alphabethItem.getItemAudioUri(index));
+            viewModel.playAudio(getContext(), Uri.parse(alphabethItem.getItemAudioUri(index)));
         }
     }
 
@@ -150,13 +151,13 @@ public class AlphabethMainFragment extends Fragment implements AlphabethAdapter.
     public void onLetterClick(int index) {
         viewModel.selectLetterIndex(index);
         AlphabethItem alphabethItem = adapter.getiItem(index);
-        viewModel.playSingleAudio(getContext(), alphabethItem.getLetterAudioUri());
+        viewModel.playAudio(getContext(), Uri.parse(alphabethItem.getLetterAudioUri()));
     }
 
     private void setClickListeners() {
         binding.alphabethTopPart.tvLetters.setOnClickListener(v -> {
             AlphabethItem alphabethItem = adapter.getiItem(viewModel.getSelectedLetterIndex().getValue());
-            viewModel.playSingleAudio(getContext(), (alphabethItem.getLetterAudioUri()));
+            viewModel.playAudio(getContext(), Uri.parse(alphabethItem.getLetterAudioUri()));
         });
         binding.alphabethBottomPart.textView.setOnClickListener(view -> {
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -166,7 +167,7 @@ public class AlphabethMainFragment extends Fragment implements AlphabethAdapter.
         });
         binding.alphabethTopPart.ibMain.setOnClickListener(view -> {
             viewModel.selectItemIndex(-1);
-            viewModel.clearPlaylist();
+            viewModel.getExoPlayer().stop();
         });
 
         binding.alphabethBottomPart.ib01.setOnClickListener(view -> trySelectItemIndex(0));

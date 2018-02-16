@@ -33,8 +33,10 @@ import java.util.List;
 public class AlphabethViewModel extends ViewModel {
     //region ExoPlayer
     private SimpleExoPlayer exoPlayer;
-    private ExoPlayer.EventListener exoPlayerListener;
-    private final List<Uri> playlist = new ArrayList<>();
+
+    public SimpleExoPlayer getExoPlayer() {
+        return exoPlayer;
+    }
 
     public void initializePlayer(Context context) {
         if (exoPlayer == null) {
@@ -45,7 +47,6 @@ public class AlphabethViewModel extends ViewModel {
     }
 
     public void releasePlayer() {
-        clearPlaylist();
         if (exoPlayer != null) {
             exoPlayer.stop();
             exoPlayer.release();
@@ -54,7 +55,7 @@ public class AlphabethViewModel extends ViewModel {
     }
 
 
-    private void playAudio(Context context, Uri mediaUri) {
+    public void playAudio(Context context, Uri mediaUri) {
         exoPlayer.stop();
 
         String userAgent = Util.getUserAgent(context, "ProjectMcQueen");
@@ -69,80 +70,11 @@ public class AlphabethViewModel extends ViewModel {
         exoPlayer.setPlayWhenReady(true);
     }
 
-    public void playSingleAudio(Context context, String uri) {
+    /*public void playSingleAudio(Context context, String uri) {
         clearPlaylist();
 
         playAudio(context, Uri.parse(uri));
-    }
-
-    public void playAudioList(Context context, List<String> uriS) {
-        clearPlaylist();
-
-        for (String uri : uriS) {
-            playlist.add(Uri.parse(uri));
-        }
-        exoPlayerListener = new ExoPlayer.EventListener() {
-            @Override
-            public void onTimelineChanged(Timeline timeline, Object manifest) {
-
-            }
-
-            @Override
-            public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-
-            }
-
-            @Override
-            public void onLoadingChanged(boolean isLoading) {
-
-            }
-
-            @Override
-            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-                switch (playbackState) {
-                    case ExoPlayer.STATE_ENDED:
-                        if (playlist.size() > 0) {
-                            Uri uri = playlist.get(0);
-                            playlist.remove(uri);
-                            playAudio(context, uri);
-                        } else {
-                            clearPlaylist();
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            @Override
-            public void onPlayerError(ExoPlaybackException error) {
-
-            }
-
-            @Override
-            public void onPositionDiscontinuity() {
-
-            }
-        };
-        exoPlayer.addListener(exoPlayerListener);
-        if (playlist.size() > 0) {
-            Uri uri = playlist.get(0);
-            playlist.remove(uri);
-            playAudio(context, uri);
-        }
-    }
-
-
-    public void clearPlaylist() {
-        if (exoPlayerListener != null) {
-            exoPlayer.removeListener(exoPlayerListener);
-            exoPlayerListener = null;
-        }
-        if (playlist.size() > 0) {
-            playlist.clear();
-        }
-        exoPlayer.stop();
-    }
+    }*/
     //endregion
 
     private MutableLiveData<Integer> selectedLetterIndex;

@@ -138,4 +138,38 @@ public class AlphabethItem {
     private boolean isItemEmpty(String imageName, int imageId) {
         return imageName.equals("") || imageId == R.drawable.transparent_rectangle;
     }
+
+    public String getImageName(int index) {
+        switch (index) {
+            case 0:
+                return firstImageName;
+            case 1:
+                return secondImageName;
+            case 2:
+                return thirdImageName;
+            case 3:
+                return fourthImageName;
+            case 4:
+                return fifthImageName;
+            default:
+                return "";
+        }
+    }
+
+    public int getImageResId(int index) {
+        switch (index) {
+            case 0:
+                return firstImageResId;
+            case 1:
+                return secondImageResId;
+            case 2:
+                return thirdImageResId;
+            case 3:
+                return fourthImageResId;
+            case 4:
+                return fifthImageResId;
+            default:
+                return 0;
+        }
+    }
 }

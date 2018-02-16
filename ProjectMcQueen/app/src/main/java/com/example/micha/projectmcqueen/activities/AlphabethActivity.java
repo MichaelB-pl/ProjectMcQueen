@@ -42,9 +42,9 @@ public class AlphabethActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_alphabeth);
         viewModel = ViewModelProviders.of(this).get(AlphabethViewModel.class);
 
-        View view =findViewById(R.id.fl_fragment_container);
-        if ( view!= null ) {
-            if(savedInstanceState != null){
+        View view = findViewById(R.id.fl_fragment_container);
+        if (view != null) {
+            if (savedInstanceState != null) {
                 return;
             }
             getSupportFragmentManager().beginTransaction().add(R.id.fl_fragment_container, AlphabethMainFragment.newInstance()).commit();
@@ -66,7 +66,7 @@ public class AlphabethActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        viewModel.clearPlaylist();
+        viewModel.getExoPlayer().stop();
         super.onBackPressed();
     }
 

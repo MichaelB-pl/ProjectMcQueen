@@ -37,13 +37,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/view_text_space"
-            tools:text="Banan" />
+            tools:text="Banan"
+            android:textColor="#0000"
+            android:textSize="@dimen/alphabethTitleHeight"/>
 
         <TextView
             android:id="@+id/tv_letter_blind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="n"
+            android:textColor="#0000"
             app:layout_constraintTop_toTopOf="@+id/imageView"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="@+id/imageView"
@@ -57,7 +60,9 @@
             app:layout_constraintBottom_toBottomOf="@+id/tv_complete_text_blind"
             app:layout_constraintStart_toStartOf="@+id/tv_complete_text_blind"
             app:layout_constraintTop_toTopOf="@+id/tv_complete_text_blind"
-            tools:text="Ban" />
+            tools:text="Ban"
+            android:textColor="#fff"
+            android:textSize="@dimen/alphabethTitleHeight"/>
 
         <TextView
             android:id="@+id/tv_moving_letter"
@@ -66,7 +71,8 @@
             tools:text="a"
             app:layout_constraintStart_toEndOf="@+id/tv_text"
             app:layout_constraintTop_toTopOf="@+id/tv_text"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_text"/>
+            app:layout_constraintBottom_toBottomOf="@+id/tv_text"
+            android:textSize="@dimen/alphabethTitleHeight"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>
