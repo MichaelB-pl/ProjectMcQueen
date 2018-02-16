@@ -45,7 +45,8 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rv_letters"
             tools:src="@mipmap/ic_launcher"
-            tools:visibility="gone"/>
+            tools:visibility="gone"
+            android:transitionName="@string/iv_alphabeth_transition_name"/>
     </android.support.constraint.ConstraintLayout>
 
 </layout>

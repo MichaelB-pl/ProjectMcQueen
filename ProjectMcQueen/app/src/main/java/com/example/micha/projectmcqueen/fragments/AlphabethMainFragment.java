@@ -161,6 +161,7 @@ public class AlphabethMainFragment extends Fragment implements AlphabethAdapter.
         });
         binding.alphabethBottomPart.textView.setOnClickListener(view -> {
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
             transaction.replace(R.id.fl_fragment_container, AlphabethSpellFragment.newInstance());
             transaction.addToBackStack(null);
             transaction.commit();

@@ -1,5 +1,6 @@
 package com.example.micha.projectmcqueen.fragments;
 
+import android.animation.Animator;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.arch.lifecycle.ViewModelProviders;
@@ -9,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.tv.TvContentRating;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -96,8 +98,7 @@ public class AlphabethSpellFragment extends Fragment {
 
     @Override
     public void onPause() {
-        clearPlaylist();
-        getFragmentManager().popBackStack();
+        exitFragment();
         super.onPause();
     }
 
@@ -143,7 +144,6 @@ public class AlphabethSpellFragment extends Fragment {
 
             @Override
             public void onPlayerError(ExoPlaybackException error) {
-
             }
 
             @Override
@@ -184,13 +184,13 @@ public class AlphabethSpellFragment extends Fragment {
             binding.tvMovingLetter.setTranslationY(currentY);
         });
 
-        int startColor;
+        int startColor = Color.BLACK;
         int endColor = Color.WHITE;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+        /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             startColor = getResources().getColor(R.color.colorAccent, null);
         } else {
             startColor = getResources().getColor(R.color.colorAccent);
-        }
+        }*/
         ValueAnimator colorAnimator = ValueAnimator.ofInt(startColor, endColor);
         colorAnimator.setEvaluator(new ArgbEvaluator());
         colorAnimator.setDuration(ANIMATION_LENGTH);
@@ -215,12 +215,12 @@ public class AlphabethSpellFragment extends Fragment {
         int xToMove = bigLetterLocation[0] - movingLetterLocation[0];
         int yToMove = bigLetterLocation[1] - movingLetterLocation[1];
 
-        int color;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+        int color = Color.BLACK;
+        /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             color = getResources().getColor(R.color.colorAccent, null);
         } else {
             color = getResources().getColor(R.color.colorAccent);
-        }
+        }*/
 
         binding.tvMovingLetter.setTextSize(textSize);
         binding.tvMovingLetter.setTranslationX((float) xToMove);
@@ -241,6 +241,29 @@ public class AlphabethSpellFragment extends Fragment {
                 binding.tvLetterBlind.setText("");
                 binding.tvText.setText(alphabethItem.getImageName(index));
                 binding.tvMovingLetter.setText("");
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    binding.tvText.setTransitionName(getResources().getString(R.string.tv_alphabeth_image_name_transition_name));
+                    binding.imageView.setTransitionName(getResources().getString(R.string.iv_alphabeth_transition_name));
+                }
+
+                binding.imageView.setScaleX(0);
+                binding.imageView.setScaleY(0);
+                ValueAnimator scaleAnimator = ValueAnimator.ofFloat(0, 0.25f, 0.5f, 0.75f, 1, 1.1f, 1);
+                scaleAnimator.setDuration(ANIMATION_LENGTH);
+                scaleAnimator.addUpdateListener(valueAnimator -> {
+                    float scale = (float) valueAnimator.getAnimatedValue();
+                    binding.imageView.setScaleX(scale);
+                    binding.imageView.setScaleY(scale);
+                    if (scale < 1) {
+                        binding.tvText.setScaleX(1);
+                        binding.tvText.setScaleY(1);
+                    } else {
+                        binding.tvText.setScaleX(scale);
+                        binding.tvText.setScaleY(scale);
+                    }
+                });
+                scaleAnimator.start();
             } else {
                 String letter = words[0];
                 String actualText = binding.tvText.getText().toString();
@@ -256,11 +279,7 @@ public class AlphabethSpellFragment extends Fragment {
             }
             viewModel.playAudio(getContext(), uri);
         } else {
-            clearPlaylist();
-            try {
-                getFragmentManager().popBackStack();
-            } catch (NullPointerException ex) {
-            }
+            exitFragment();
         }
     }
 
@@ -273,5 +292,13 @@ public class AlphabethSpellFragment extends Fragment {
             playlist.clear();
         }
         viewModel.getExoPlayer().stop();
+    }
+
+    private void exitFragment() {
+        clearPlaylist();
+        try {
+            getFragmentManager().popBackStack();
+        } catch (NullPointerException ex) {
+        }
     }
 }

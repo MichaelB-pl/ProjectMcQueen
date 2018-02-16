@@ -5,4 +5,8 @@
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="iv_alphabeth_transition_name">iv_alphabeth</string>
+    <string name="tv_alphabeth_image_name_transition_name">tv_alphabeth_image_name</string>
+    <string name="ll_alphabeth_transition_name">ll_alphabeth</string>
 </resources>
