@@ -47,7 +47,7 @@
             android:id="@+id/tv_letter_blind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#f00"
+            android:textColor="#0000"
             android:textSize="@dimen/alphabeth_big_letter_size"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="@+id/imageView"

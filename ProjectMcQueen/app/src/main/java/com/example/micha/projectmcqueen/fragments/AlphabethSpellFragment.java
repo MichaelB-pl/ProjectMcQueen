@@ -1,6 +1,7 @@
 package com.example.micha.projectmcqueen.fragments;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.arch.lifecycle.ViewModelProviders;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.micha.projectmcqueen.R;
@@ -155,7 +157,6 @@ public class AlphabethSpellFragment extends Fragment {
             }
         };
         viewModel.getExoPlayer().addListener(exoPlayerListener);
-//        setMovingLetterStartPosition();
         tryPlayPlaylistItem();
     }
 
@@ -209,6 +210,7 @@ public class AlphabethSpellFragment extends Fragment {
     }
 
     private void setMovingLetterStartPosition() {
+        binding.tvMovingLetter.measure(0, 0);
         float textSize = binding.tvLetterBlind.getTextSize();
         int[] bigLetterLocation = new int[2];
         int[] movingLetterLocation = new int[2];
@@ -217,11 +219,8 @@ public class AlphabethSpellFragment extends Fragment {
 
         int xToMove = bigLetterLocation[0] - movingLetterLocation[0];
         int yToMove = bigLetterLocation[1] - movingLetterLocation[1];
-//        int xDis = ;
-        int lWidth = binding.tvLetterBlind.getWidth();
-        int mWidth = binding.tvMovingLetter.getWidth();
-//        xToMove -= (binding.tvLetterBlind.getWidth()) - binding.tvMovingLetter.getWidth() / 2;
-        yToMove += (binding.tvLetterBlind.getHeight() - binding.tvMovingLetter.getHeight()) / 2;
+        xToMove -= binding.tvMovingLetter.getMeasuredWidth();
+        yToMove += (binding.tvLetterBlind.getMeasuredHeight() - binding.tvMovingLetter.getMeasuredHeight()) / 2;
 
         int color = Color.BLACK;
         /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
@@ -234,6 +233,9 @@ public class AlphabethSpellFragment extends Fragment {
         binding.tvMovingLetter.setTranslationX((float) xToMove);
         binding.tvMovingLetter.setTranslationY((float) yToMove);
         binding.tvMovingLetter.setTextColor(color);
+
+        binding.tvMovingLetter.setScaleX(0);
+        binding.tvMovingLetter.setScaleY(0);
     }
 
     private void tryPlayPlaylistItem() {
@@ -271,6 +273,13 @@ public class AlphabethSpellFragment extends Fragment {
                         binding.tvText.setScaleY(scale);
                     }
                 });
+                scaleAnimator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        viewModel.playAudio(getContext(), uri);
+                    }
+                });
                 scaleAnimator.start();
             } else {
                 String letter = words[0];
@@ -281,16 +290,26 @@ public class AlphabethSpellFragment extends Fragment {
                 }
                 binding.tvText.setText(actualText + lastLetter);
                 binding.tvMovingLetter.setText(letter);
-
-                /*Uri uri2 = playlist.get(1);
-                String path2 = uri2.getLastPathSegment();
-                String[] words2 = path2.split(".mp3");
-                String letter2 = words2[0];*/
                 binding.tvLetterBlind.setText(letter);
 
                 setMovingLetterStartPosition();
+
+                ValueAnimator scaleAnimator = ValueAnimator.ofFloat(0, 0.25f, 0.5f, 0.75f, 1, 1.1f, 1);
+                scaleAnimator.setDuration(ANIMATION_LENGTH / 2);
+                scaleAnimator.addUpdateListener(valueAnimator -> {
+                    float scale = (float) valueAnimator.getAnimatedValue();
+                    binding.tvMovingLetter.setScaleX(scale);
+                    binding.tvMovingLetter.setScaleY(scale);
+                });
+                scaleAnimator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        viewModel.playAudio(getContext(), uri);
+                    }
+                });
+                scaleAnimator.start();
             }
-            viewModel.playAudio(getContext(), uri);
         } else {
             exitFragment();
         }
