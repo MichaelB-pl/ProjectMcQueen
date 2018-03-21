@@ -108,7 +108,7 @@ public class AlphabethSpellFragment extends Fragment {
     }
 
     private void setTypefaceForTextViews() {
-        Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "GloriaHallelujah.ttf");
+        Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "Elementarz2.ttf");
         binding.tvCompleteTextBlind.setTypeface(typeface);
         binding.tvLetterBlind.setTypeface(typeface);
         binding.tvMovingLetter.setTypeface(typeface);

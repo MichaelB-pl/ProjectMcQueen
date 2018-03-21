@@ -43,7 +43,7 @@ public class AlphabethAdapter extends RecyclerView.Adapter<AlphabethAdapter.Alph
 
     @Override
     public void onBindViewHolder(AlphabethAdapterViewHolder holder, int position) {
-        holder.LetterTextView.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "GloriaHallelujah.ttf"));
+        holder.LetterTextView.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "Elementarz2.ttf"));
         holder.LetterTextView.setText(alphabeth.get(position).letter);
     }
 

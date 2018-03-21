@@ -45,8 +45,8 @@ public class AlphabethMainFragment extends Fragment implements AlphabethAdapter.
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_alphabeth_main, null, true);
-        binding.alphabethTopPart.tvLetters.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "GloriaHallelujah.ttf"));
-        binding.alphabethBottomPart.textView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "GloriaHallelujah.ttf"));
+        binding.alphabethTopPart.tvLetters.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "Elementarz2.ttf"));
+        binding.alphabethBottomPart.textView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "Elementarz2.ttf"));
 
         binding.alphabethTopPart.rvLetters.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.alphabethTopPart.rvLetters.setHasFixedSize(true);
